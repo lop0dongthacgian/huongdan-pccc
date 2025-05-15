@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng dụng PCCC</title>
+    <style>
+        /* ====================
+           Tổng quan trang
+           ==================== */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+
+        /* ====================
+           Header (phần đầu trang)
+           ==================== */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ff4444;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        /* Các nút trong header */
+        .btn {
+            padding: 20px 40px;
+            margin: 5px;
+            font-size: 22px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* ====================
+           Nút Bắt đầu
+           ==================== */
+        #startBtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px 80px;
+            font-size: 36px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* ====================
+           Khu vực câu hỏi
+           ==================== */
+        .question-container {
+            margin-top: 140px;
+            display: none;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Khung chứa câu hỏi */
+        .question-box {
+            background-color: #e6f3ff;
+            padding: 50px;
+            font-size: 32px;
+            border-radius: 16px;
+            margin: 30px 0;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            color: #003366;
+        }
+
+        /* Nút đáp án */
+        .answer-btn {
+            width: 100%;
+            padding: 35px;
+            font-size: 26px;
+            margin: 20px 0;
+            background-color: #d0ecff;
+            border: none;
+            border-radius: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .answer-btn:hover {
+            background-color: #add8e6;
+        }
+
+        /* Màu cho đáp án đúng/sai */
+        .correct {
+            background-color: #006400 !important;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #ff6347 !important;
+            color: white;
+        }
+
+        /* Đồng hồ đếm giờ */
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ====================
+           Footer (chân trang)
+           ==================== */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background-color: #a5d6a7;
+            font-size: 16px;
+            color: white; /* Màu trắng cho chữ copyright */
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Liên kết "Hướng dẫn" trong footer */
+        #helpLink {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px; /* Thêm khoảng cách bên trái */
+            transition: background-color 0.3s;
+        }
+
+        #helpLink:hover {
+            background-color: #0056b3;
+        }
+
+        /* ====================
+           Bảng hướng dẫn
+           ==================== */
+        #guideBox {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #0056b3;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        #guideTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        #guideTable th,
+        #guideTable td {
+            border: 1px solid #ddd;
+            padding: 16px;
+            text-align: left;
+        }
+
+        #guideTable th {
+            background-color: #0056b3;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #guideTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #guideTable .feature-name {
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        #guideTable .description {
+            color: #333;
+        }
+
+        /* Nút đóng bảng hướng dẫn */
+        #closeGuide {
+            background-color: #d9534f;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 20px auto;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        #closeGuide:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <button class="btn" id="musicBtn">Bật nhạc</button>
+        <button class="btn" id="restartBtn">Chơi lại</button>
+        <button class="btn" id="exitBtn">Thoát</button>
+    </div>
+
+    <button id="startBtn">Bắt đầu</button>
+
+    <div class="question-container" id="questionContainer">
+        <div id="timer">15</div>
+        <div class="question-box" id="question"></div>
+        <div id="answers"></div>
+    </div>
+
+    <footer>
+        <span>@2025, ứng dụng được tạo bởi Phan Anh</span>
+        <a id="helpLink" href="#">Hướng dẫn</a>
+    </footer>
+
+    <div id="guideBox">
+        <h2>Hướng dẫn sử dụng</h2>
+        <table id="guideTable">
+            <thead>
+                <tr>
+                    <th>Tính năng</th>
+                    <th>Mô tả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-name">Bắt đầu</td>
+                    <td class="description">Nhấn nút "Bắt đầu" để khởi động trò chơi.</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Trả lời câu hỏi</td>
+                    <td class="description">Chọn đáp án đúng trong thời gian quy định.</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Bật/Tắt nhạc</td>
+                    <td class="description">Điều khiển nhạc nền.</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Chơi lại</td>
+                    <td class="description">Bắt đầu lượt chơi mới.</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Thoát</td>
+                    <td class="description">Quay lại trang chủ.</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="closeGuide">Đóng</button>
+    </div>
+
+    <script src="cauhoi.js"></script>
+    <script>
+        /* ====================
+           Các biến toàn cục
+           ==================== */
+        const bgMusic = new Audio('nhac-nen.mp3');
+        const correctSound = new Audio('correct.mp3');
+        const wrongSound = new Audio('wrong.mp3');
+        let isMusicOn = false;
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 15;
+        let shuffledQuestions = [];
+        let gameStarted = false;
+        let wrongAnswers = 0;
+
+        /* ====================
+           Các hàm xử lý sự kiện
+           ==================== */
+        document.getElementById('startBtn').addEventListener('click', startQuiz);
+        document.getElementById('musicBtn').addEventListener('click', toggleMusic);
+        document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+        document.getElementById('exitBtn').addEventListener('click', exitGame);
+        document.getElementById('helpLink').addEventListener('click', showGuide);
+        document.getElementById('closeGuide').addEventListener('click', closeGuide);
+
+        /* ====================
+           Các hàm chức năng
+           ==================== */
+        function startQuiz() {
+            gameStarted = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('questionContainer').style.display = 'block';
+            shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+            currentQuestion = 0;
+            score = 0;
+            wrongAnswers = 0;
+            showQuestion();
+            bgMusic.play();
+            isMusicOn = true;
+            document.getElementById('musicBtn').textContent = 'Tắt nhạc';
+            document.getElementById('musicBtn').style.background = '#ff4444';
+        }
+
+        function showQuestion() {
+            resetTimer();
+            if (gameStarted) {
+                const question = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = question.question;
+                const answersDiv = document.getElementById('answers');
+                answersDiv.innerHTML = '';
+                question.answers.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.className = 'answer-btn';
+                    button.innerHTML = answer.text;
+                    button.addEventListener('click', () => checkAnswer(answer.correct, button));
+                    answersDiv.appendChild(button);
+                });
+                startTimer();
+            }
+        }
+
+        function checkAnswer(isCorrect, button) {
+            clearInterval(timer);
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons.forEach(b => b.disabled = true);
+            if (isCorrect) {
+                score++;
+                if (isMusicOn) correctSound.play();
+                button.classList.add('correct');
+            } else {
+                wrongAnswers++;
+                if (isMusicOn) wrongSound.play();
+                button.classList.add('wrong');
+            }
+            setTimeout(() => nextQuestion(), 1500);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < shuffledQuestions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function startTimer() {
+            if (gameStarted) {
+                timeLeft = 15;
+                updateTimerDisplay();
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        markAsWrong();
+                        wrongAnswers++;
+                        setTimeout(() => nextQuestion(), 1000);
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateTimerDisplay() {
+            if (gameStarted) {
+                const timerEl = document.getElementById('timer');
+                timerEl.textContent = timeLeft;
+                timerEl.style.color = timeLeft <= 5 ? 'red' : 'green';
+            }
+        }
+
+        function markAsWrong() {
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons.forEach(b => b.disabled = true);
+            if (isMusicOn) wrongSound.play();
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            document.getElementById('timer').textContent = '';
+        }
+
+        function toggleMusic() {
+            isMusicOn = !isMusicOn;
+            document.getElementById('musicBtn').textContent = isMusicOn ? 'Tắt nhạc' : 'Bật nhạc';
+            document.getElementById('musicBtn').style.background = isMusicOn ? '#4CAF50' : '#ff4444';
+            if (isMusicOn) bgMusic.play();
+            else bgMusic.pause();
+        }
+
+        function exitGame() {
+            const totalQuestions = shuffledQuestions.length;
+            const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu / ${totalQuestions} câu hỏi`;
+            alert(message);
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 1000);
+        }
+
+        function showGuide() {
+            document.getElementById('guideBox').style.display = 'block';
+            if (gameStarted) {
+                clearInterval(timer);
+            }
+        }
+
+        function closeGuide() {
+            document.getElementById('guideBox').style.display = 'none';
+            if (gameStarted) {
+                startTimer();
+                showQuestion();
+            }
+        }
+    </script>
+</body>
+
+</html>

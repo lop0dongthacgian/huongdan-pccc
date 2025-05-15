@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng PCCC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Thêm style cho nút trò chơi */
+        #menu-trochoi {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        #menu-trochoi:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Ứng dụng Phòng Cháy Chữa Cháy</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="#huongdan" id="menu-huongdan"><span>💡</span> Hướng dẫn PCCC</a></li>
+            <li><a href="pccc-index/pccc-index.html" id="menu-trochoi"><span>🎮</span> Trò chơi trả lời câu hỏi PCCC</a></li>
+            <li><a href="contact.html"><span>📞</span> Liên hệ</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="trang-chu">
+            <h2>Chào mừng bạn đến với Ứng dụng PCCC!</h2>
+            <p>Ứng dụng cung cấp các kiến thức, hướng dẫn và các trò chơi tương tác giúp nâng cao nhận thức về phòng cháy chữa cháy.</p>
+            <div class="feature-images">
+                <img src="img/minhhoa1.jpg" alt="Hướng dẫn PCCC" width="300">
+                <img src="img/minhhoa2.png" alt="Trò chơi PCCC" width="300">
+            </div>
+        </section>
+
+        <section id="noi-dung-huongdan" class="hidden">
+            <h2>Hướng dẫn Phòng Cháy Chữa Cháy</h2>
+            <div id="danh-sach-huongdan">
+            </div>
+        </section>
+
+        </main>
+
+    <footer>
+        <p>&copy; 2025 Ứng dụng PCCC - Người tạo: Phan Anh</p>
+    </footer>
+
+    <script src="js/tailieu.js"></script>
+    <script src="js/main.js"></script>
+    </body>
+
+</html>
