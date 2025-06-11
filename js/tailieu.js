@@ -61,6 +61,42 @@ const danhSachHuongDan = [
         `
     },
     {
+        tieuDe: "Kỹ năng dập cháy khi không có bình chữa cháy",
+        noiDung: `
+            <p><b>Lưu ý:</b> Chỉ áp dụng với đám cháy nhỏ, mới phát sinh. Nếu cháy lớn, ưu tiên thoát nạn và gọi <b>114</b>.</p>
+            <h4>1. Dùng nước</h4>
+            <ul>
+                <li><b>Nên dùng cho:</b> Cháy gỗ, giấy, vải, vật liệu rắn thông thường.</li>
+                <li><b>Cách làm:</b> Dội nước thẳng vào gốc lửa cho đến khi tắt hẳn.</li>
+                <li><b style="color:red;">TUYỆT ĐỐI KHÔNG DÙNG</b> cho cháy do điện, xăng dầu, mỡ.</li>
+            </ul>
+            <h4>2. Dùng chăn hoặc vải dày thấm nước</h4>
+            <ul>
+                <li><b>Nên dùng cho:</b> Cháy nhỏ như chảo mỡ, thùng rác, hoặc lửa bén trên quần áo.</li>
+                <li><b>Cách làm:</b> Nhúng ướt sũng chăn, cẩn thận tiếp cận và phủ kín lên đám cháy để dập tắt lửa bằng cách làm ngạt.</li>
+            </ul>
+            <h4>3. Dùng cát hoặc đất</h4>
+            <ul>
+                <li><b>Nên dùng cho:</b> Cháy chất lỏng như xăng, dầu.</li>
+                <li><b>Cách làm:</b> Xúc cát hoặc đất phủ kín hoàn toàn lên bề mặt đám cháy.</li>
+            </ul>
+             <img src="img/dapchay_khongcobinh.jpg" alt="Dập cháy bằng phương pháp thông thường" width="300">
+        `
+    },
+    {
+        tieuDe: "An toàn khi sử dụng nhang (hương)",
+        noiDung: `
+            <p>Thắp nhang là một nguồn nhiệt tiềm ẩn nguy cơ cháy nổ. Cần tuân thủ nghiêm ngặt các quy tắc sau:</p>
+            <ul>
+                <li><b>Vị trí:</b> Đặt bát hương ở nơi chắc chắn, xa các vật dễ cháy như rèm cửa, giấy tờ, trần nhựa/xốp.</li>
+                <li><b>Giám sát:</b> Luôn có người trông coi, không rời khỏi nhà hoặc đi ngủ khi nhang vẫn đang cháy.</li>
+                <li><b>Số lượng:</b> Không cắm quá nhiều nhang vào cùng một bát hương gây tích nhiệt.</li>
+                <li><b>Xử lý tàn nhang:</b> Phải chắc chắn tàn nhang đã tắt hoàn toàn trước khi vứt. Nên cho vào thùng chứa không cháy và đổ ít nước vào cho an toàn.</li>
+            </ul>
+            <img src="img/antoan_nhang.jpg" alt="An toàn khi thắp nhang" width="300">
+        `
+    },
+    {
         tieuDe: "Phòng cháy chữa cháy cho nhà cao tầng",
         noiDung: `
             <ul>
