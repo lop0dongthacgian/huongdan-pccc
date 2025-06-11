@@ -61,7 +61,7 @@ const danhSachHuongDan = [
         `
     },
     {
-        tieuDe: "Kỹ năng dập cháy khi không có bình chữa cháy",
+        tieuDe: "Kỹ năng dập cháy khi không có hoặc kết hợp bình chữa cháy",
         noiDung: `
             <p><b>Lưu ý:</b> Chỉ áp dụng với đám cháy nhỏ, mới phát sinh. Nếu cháy lớn, ưu tiên thoát nạn và gọi <b>114</b>.</p>
             <h4>1. Dùng nước</h4>
