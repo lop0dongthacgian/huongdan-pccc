@@ -335,64 +335,27 @@ const questions = [
     {
         "question": "Luật PCCC được Quốc hội khóa X nước CHXHCN Việt Nam thông qua vào ngày tháng năm nào ?",
         "answers": [
-            {
-                "text": "A. Ngày 29/6/2001.",
-                "correct": true
-            },
-            {
-                "text": "B. Ngày 30/6/2001.",
-                "correct": false
-            },
-            {
-                "text": "C. Ngày 29/6/2002.",
-                "correct": false
-            },
-            {
-                "text": "D. Ngày 30/6/2002.",
-                "correct": false
-            }
+            {"text": "A. Ngày 29/6/2001.", "correct": true },
+            {"text": "B. Ngày 30/6/2001.", "correct": false },
+            {"text": "C. Ngày 29/6/2002.","correct": false },
+            {"text": "D. Ngày 30/6/2002.", "correct": false }
         ]
     },
     {
-        "question": "Luật PCCC giải thích Đội PCCC cơ sở như thế nào ?",
+       "question": "Luật PCCC giải thích Đội PCCC cơ sở như thế nào ?",
         "answers": [
-            {
-                "text": "A. Gồm những người tham gia hoạt động sản xuất tại cơ sở.",
-                "correct": false
-            },
-            {
-                "text": "B. Là tổ chức gồm những người tham gia hoạt động PCCC tại cơ sở.",
-                "correct": true
-            },
-            {
-                "text": "C. Gồm những người tham gia chỉ đạo công tác PCCC tại cơ sở.",
-                "correct": false
-            },
-            {
-                "text": "D. Là tổ chức gồm những người quản đốc, tổ trưởng sản xuất, dân phòng tại cơ quan, xí nghiệp.",
-                "correct": false
-            }
+            {"text": "A. Gồm những người tham gia hoạt động sản xuất tại cơ sở.",  "correct": false },
+            {"text": "B. Là tổ chức gồm những người tham gia hoạt động PCCC tại cơ sở.","correct": true},
+            {"text": "C. Gồm những người tham gia chỉ đạo công tác PCCC tại cơ sở.","correct": false},
+            {"text": "D. Là tổ chức gồm những người quản đốc, tổ trưởng sản xuất, dân phòng tại cơ quan, xí nghiệp.","correct": false}
         ]
     },
-    {
-        "question": "Luật PCCC quy định những đối tượng nào phải thực hiện Bảo hiểm cháy, nổ bắt buộc đối với tài sản của mình?",
+    {"question": "Luật PCCC quy định những đối tượng nào phải thực hiện Bảo hiểm cháy, nổ bắt buộc đối với tài sản của mình?",
         "answers": [
-            {
-                "text": "A. Tất cả các cơ sở sản xuất, kinh doanh",
-                "correct": false
-            },
-            {
-                "text": "B. Tổ chức và cá nhân có cơ sở có nguy hiểm về cháy nổ",
-                "correct": false
-            },
-            {
-                "text": "C. Cơ quan, tổ chức và cá nhân có cơ sở có nguy hiểm về cháy nổ",
-                "correct": true
-            },
-            {
-                "text": "D. Cơ quan, xí nghiệp có nguy hiểm về cháy nổ",
-                "correct": false
-            }
+            {"text": "A. Tất cả các cơ sở sản xuất, kinh doanh","correct": false},
+            {"text": "B. Tổ chức và cá nhân có cơ sở có nguy hiểm về cháy nổ","correct": false},
+            { "text": "C. Cơ quan, tổ chức và cá nhân có cơ sở có nguy hiểm về cháy nổ", "correct": true},
+            {"text": "D. Cơ quan, xí nghiệp có nguy hiểm về cháy nổ","correct": false}
         ]
     },
     {
@@ -2434,53 +2397,5 @@ const questions = [
                 "correct": false
             }
         ]
-    },
-    {
-        "question": "Trong nhiệm vụ của bạn tại Đội phòng cháy cơ sở, bạn được giao bảo quản, sử dụng bình bột hóa học (MFZ). Bạn hãy trình bày cách bảo quản kiểm tra bình chữa cháy trên?",
-        "answers": []
-    },
-    {
-        "question": "Trong đội dân phòng của bạn, bạn được giao nhiệm vụ sử dụng bình chữa cháy CO2. Bạn hãy trình bày cách bảo quản, kiểm tra loại bình chữa cháy này?",
-        "answers": []
-    },
-    {
-        "question": "Anh chị hãy trình bày nội dung phương châm 4 tại chỗ trong công tác PCCC",
-        "answers": []
-    },
-    {
-        "question": "Bạn là đội viên đội PCCC của cơ sở, khi kiểm tra công tác PCCC tại các chợ, trung tâm thương mại, bạn cần nhắc tiểu thương cần chú ý những vấn đề gì trong việc sử dụng điện?",
-        "answers": []
-    },
-    {
-        "question": "Đội PCCC cơ sở của anh (chị) đã được Huấn luyện nghiệp vụ và cấp giấy chứng nhận Huấn luyện nghiệp vụ PCCC. Có một đội viên thông báo và đề nghị cấp lại “Giấy chứng nhận Huấn luyện nghiệp vụ PCCC” sau 1 năm. Theo bạn trường hợp này đúng hay sai? Vì sao?",
-        "answers": []
-    },
-    {
-        "question": "Theo các quy định của Pháp luật, anh (chị) hãy cho biết trách nhiệm mua Bảo hiểm cháy nổ bắt buộc của các cơ sở trong đó có nhiều hộ như nhà tập thể, nhà chung cư hoặc trong một cơ sở mà có nhiều cơ quan, tổ chức, cá nhân thuê thực hiện như thế nào?",
-        "answers": []
-    },
-    {
-        "question": "Bạn được giao nhiệm vụ quản lý nhà hàng, bạn sử dụng các biện pháp gì đảm bảo an toàn phòng cháy chữa cháy đối với hệ thống gas trong nhà hàng của mình?",
-        "answers": []
-    },
-    {
-        "question": "Cơ sở của bạn đang tiến hành bảo dưỡng, sửa chữa có sử dụng hàn cắt kim loại. Bạn thực hiện các biện pháp đảm bảo an toàn về PCCC?",
-        "answers": []
-    },
-    {
-        "question": "Được giao nhiệm vụ hướng dẫn bà con tiểu thương kinh doanh trong các chợ, trung tâm thương mại, Anh (Chị) hướng dẫn tiểu thương các biện pháp an toàn PCCC tại các gian hàng, quầy hàng, sạp hàng, nơi giao và nhận hàng trong các chợ và trung tâm thương mại như thế nào?",
-        "answers": []
-    },
-    {
-        "question": "Anh (Chị) là đội viên đội dân phòng, được UBND phường giao nhiệm vụ kiểm tra an toàn PCCC một khu phố thì nội dung cơ bản cần đề cập khi tiến hành kiểm tra an toàn PCCC khu dân cư gồm những nội dung nào?",
-        "answers": []
-    },
-    {
-        "question": "Bạn là đội trưởng đội dân phòng, được UBND cấp xã ủy quyền và giao nhiệm vụ kiểm tra an toàn PCCC một khu dân cư. Quá trình kiểm tra bạn phát hiện một hộ dân đang tự ý tiến hành sang chiết gas trái phép từ một bình gas loại 13kg sang các bình (mini) loại 200g để kinh doanh. Bạn xử lý tình huống trên như thế nào?",
-        "answers": []
-    },
-    {
-        "question": "Bạn được cử đến cơ quan A để liên hệ công tác, khi đến nơi bạn phát hiện ở dưới gầm cầu thang bộ mà cơ quan A đang xảy ra cháy, do công tác vệ sinh không tốt, dưới cầu thang có nhiều phế liệu dễ cháy bạn tiến hành xử lý tình huống trên như thế nào?",
-        "answers": []
     }
 ];
