@@ -291,7 +291,7 @@
            Các biến toàn cục
            ==================== */
         const bgMusic = new Audio('nhac-nen.mp3');
-        bgMusic.loop = true; // SỬA ĐỔI: Thêm dòng này để nhạc nền tự lặp lại
+        bgMusic.loop = true; // Nhạc nền tự lặp lại
         const correctSound = new Audio('correct.mp3');
         const wrongSound = new Audio('wrong.mp3');
         let isMusicOn = false;
@@ -316,6 +316,8 @@
         /* ====================
            Các hàm chức năng
            ==================== */
+        
+        // SỬA ĐỔI: Nhạc tự phát khi bắt đầu
         function startQuiz() {
             gameStarted = true;
             document.getElementById('startBtn').style.display = 'none';
@@ -325,9 +327,12 @@
             score = 0;
             wrongAnswers = 0;
             showQuestion();
-            if (isMusicOn) {
-                bgMusic.play();
-            }
+
+            // Tự động phát nhạc và cập nhật trạng thái
+            bgMusic.play();
+            isMusicOn = true;
+            document.getElementById('musicBtn').textContent = 'Tắt nhạc';
+            document.getElementById('musicBtn').style.background = '#4CAF50'; // Màu xanh lá cho trạng thái "On"
         }
 
         function showQuestion() {
@@ -369,7 +374,7 @@
             if (currentQuestion < shuffledQuestions.length) {
                 showQuestion();
             } else {
-                endQuiz(); // SỬA ĐỔI: Gọi hàm kết thúc trò chơi
+                endQuiz(); // Gọi hàm kết thúc trò chơi
             }
         }
 
@@ -393,7 +398,6 @@
                 </div>
             `;
         }
-
 
         function startTimer() {
             if (gameStarted) {
