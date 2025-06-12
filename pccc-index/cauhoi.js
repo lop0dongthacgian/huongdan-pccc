@@ -361,64 +361,28 @@ const questions = [
     {
         "question": "Trách nhiệm tuyên truyền, phổ biến, giáo dục về PCCC được quy định trong điều nào của Luật PCCC?",
         "answers": [
-            {
-                "text": "A. Điều 6",
-                "correct": true
-            },
-            {
-                "text": "B. Điều 7",
-                "correct": false
-            },
-            {
-                "text": "C. Điều 8",
-                "correct": false
-            },
-            {
-                "text": "D. Điều 9",
-                "correct": false
-            }
+            {"text": "A. Điều 6","correct": true },
+            {"text": "B. Điều 7","correct": false},
+            {"text": "C. Điều 8", "correct": false},
+            {"text": "D. Điều 9","correct": false}
         ]
     },
     {
         "question": "Việc “ưu tiên và đảm bảo quyền ưu tiên cho người và phương tiện tham gia chữa cháy” được quy định tại điều mấy của Luật PCCC:",
         "answers": [
-            {
-                "text": "A. Điều 36",
-                "correct": true
-            },
-            {
-                "text": "B. Điều 37",
-                "correct": false
-            },
-            {
-                "text": "C. Điều 38",
-                "correct": false
-            },
-            {
-                "text": "D. Điều 39",
-                "correct": false
-            }
+            {"text": "A. Điều 36","correct": true},
+            {"text": "B. Điều 37","correct": false},
+            {"text": "C. Điều 38","correct": false},
+            {"text": "D. Điều 39","correct": false}
         ]
     },
     {
         "question": "Trong lĩnh vực xây dựng, Luật PCCC quy định hành vi nào bị nghiêm cấm ?",
         "answers": [
-            {
-                "text": "A. Thi công những công trình có nguy hiểm về cháy nổ mà không có thiết kế về PCCC",
-                "correct": false
-            },
-            {
-                "text": "B. Thi công những công trình có nguy hiểm về cháy nổ mà chưa có thiết kế được duyệt về PCCC",
-                "correct": true
-            },
-            {
-                "text": "C. Thi công những công trình có nguy hiểm về cháy nổ gần các nhà và công trình công cộng",
-                "correct": false
-            },
-            {
-                "text": "D. Thi công những công trình có nguy hiểm về cháy nổ mà không có trang bị phương tiện PCCC",
-                "correct": false
-            }
+            {"text": "A. Thi công những công trình có nguy hiểm về cháy nổ mà không có thiết kế về PCCC","correct": false},
+            {"text": "B. Thi công những công trình có nguy hiểm về cháy nổ mà chưa có thiết kế được duyệt về PCCC","correct": true},
+            {"text": "C. Thi công những công trình có nguy hiểm về cháy nổ gần các nhà và công trình công cộng","correct": false},
+            {"text": "D. Thi công những công trình có nguy hiểm về cháy nổ mà không có trang bị phương tiện PCCC","correct": false}
         ]
     },
     {
@@ -760,18 +724,10 @@ const questions = [
     {
         "question": "Theo qui định của Luật PCCC, nhiệm vụ của lực lượng dân phòng và lực lượng PCCC cơ sở gồm có 5 nhiệm vụ. Luật quy định nhiệm vụ thứ 5 như thế nào trong các phương án sau đây?",
         "answers": [
-            {
-                "text": "A. Xây dựng phương án, chuẩn bị lực lượng, phương tiện thực hiện nhiệm vụ chữa cháy khi có cháy xảy ra. Tham gia chữa cháy ở địa phương, cơ sở khác khi có yêu cầu",
-                "correct": true
-            },
-            {
-                "text": "C. Cả A và B đúng",
-                "correct": false
-            },
-            {
-                "text": "D. Cả A và B sai",
-                "correct": false
-            }
+            {"text": "A. Xây dựng phương án, chuẩn bị lực lượng, phương tiện thực hiện nhiệm vụ chữa cháy khi có cháy xảy ra. Tham gia chữa cháy ở địa phương, cơ sở khác khi có yêu cầu", "correct": true},
+            {"text": "B. Tổ chức huấn luyện, bồi dưỡng nghiệp vụ phòng cháy và chữa cháy","correct": false},
+            {"text": "C. Cả A và B đúng","correct": false},
+            {"text": "D. Cả A và B sai","correct": false}
         ]
     },
     {
