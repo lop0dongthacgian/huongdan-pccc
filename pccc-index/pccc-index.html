@@ -291,6 +291,7 @@
            Các biến toàn cục
            ==================== */
         const bgMusic = new Audio('nhac-nen.mp3');
+        bgMusic.loop = true; // SỬA ĐỔI: Thêm dòng này để nhạc nền tự lặp lại
         const correctSound = new Audio('correct.mp3');
         const wrongSound = new Audio('wrong.mp3');
         let isMusicOn = false;
@@ -324,10 +325,9 @@
             score = 0;
             wrongAnswers = 0;
             showQuestion();
-            bgMusic.play();
-            isMusicOn = true;
-            document.getElementById('musicBtn').textContent = 'Tắt nhạc';
-            document.getElementById('musicBtn').style.background = '#ff4444';
+            if (isMusicOn) {
+                bgMusic.play();
+            }
         }
 
         function showQuestion() {
@@ -369,9 +369,31 @@
             if (currentQuestion < shuffledQuestions.length) {
                 showQuestion();
             } else {
-                endQuiz();
+                endQuiz(); // SỬA ĐỔI: Gọi hàm kết thúc trò chơi
             }
         }
+
+        // HÀM MỚI: Xử lý khi kết thúc tất cả câu hỏi
+        function endQuiz() {
+            gameStarted = false;
+            clearInterval(timer);
+            bgMusic.pause();
+            document.getElementById('musicBtn').textContent = 'Bật nhạc';
+            document.getElementById('musicBtn').style.background = '#ff4444';
+            isMusicOn = false;
+
+            const questionContainer = document.getElementById('questionContainer');
+            const totalQuestions = shuffledQuestions.length;
+            
+            questionContainer.innerHTML = `
+                <div style="background-color: #e6f3ff; padding: 50px; border-radius: 16px; box-shadow: 0 0 12px rgba(0,0,0,0.2); text-align: center;">
+                    <h2 style="font-size: 36px; color: #003366;">Hoàn thành!</h2>
+                    <p style="font-size: 28px; color: #006400; font-weight: bold;">Điểm của bạn: ${score} / ${totalQuestions}</p>
+                    <p style="font-size: 24px; color: #ff6347;">Số câu sai: ${wrongAnswers}</p>
+                </div>
+            `;
+        }
+
 
         function startTimer() {
             if (gameStarted) {
@@ -406,38 +428,54 @@
 
         function resetTimer() {
             clearInterval(timer);
-            document.getElementById('timer').textContent = '';
+            const timerEl = document.getElementById('timer');
+            if (timerEl) {
+                 timerEl.textContent = '';
+            }
         }
 
         function toggleMusic() {
             isMusicOn = !isMusicOn;
             document.getElementById('musicBtn').textContent = isMusicOn ? 'Tắt nhạc' : 'Bật nhạc';
             document.getElementById('musicBtn').style.background = isMusicOn ? '#4CAF50' : '#ff4444';
-            if (isMusicOn) bgMusic.play();
-            else bgMusic.pause();
+            if (isMusicOn) {
+                bgMusic.play();
+            } else {
+                bgMusic.pause();
+            }
         }
 
         function exitGame() {
-            const totalQuestions = shuffledQuestions.length;
-            const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu / ${totalQuestions} câu hỏi`;
+            const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : questions.length;
+            const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
+            // Chuyển hướng về trang chủ giả định, bạn có thể thay đổi đường dẫn này
             setTimeout(() => {
-                window.location.href = '../index.html';
-            }, 1000);
+                window.location.href = '../index.html'; 
+            }, 500);
         }
 
         function showGuide() {
             document.getElementById('guideBox').style.display = 'block';
             if (gameStarted) {
-                clearInterval(timer);
+                clearInterval(timer); // Tạm dừng đồng hồ
             }
         }
 
         function closeGuide() {
             document.getElementById('guideBox').style.display = 'none';
-            if (gameStarted) {
-                startTimer();
-                showQuestion();
+            if (gameStarted && timeLeft > 0) {
+                // Tiếp tục đồng hồ thay vì reset câu hỏi
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        markAsWrong();
+                        wrongAnswers++;
+                        setTimeout(() => nextQuestion(), 1000);
+                    }
+                }, 1000);
             }
         }
     </script>
