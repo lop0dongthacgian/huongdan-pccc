@@ -63,7 +63,7 @@ const danhSachHuongDan = [
     {
         tieuDe: "Kỹ năng dập cháy khi không có hoặc kết hợp bình chữa cháy",
         noiDung: `
-            <p><b>Lưu ý:</b> Chỉ áp dụng với đám cháy nhỏ, mới phát sinh. Nếu cháy lớn, ưu tiên thoát nạn và gọi <b>114</b>.</p>
+            <p><b>Lưu ý:</b> Chỉ áp dụng với đám cháy nhỏ, mới phát sinh.<span style="color:red;"> Nếu cháy lớn, ưu tiên thoát nạn và gọi <b>114</b>.</p>
             <h4>1. Dùng nước</h4>
             <ul>
                 <li><b>Nên dùng cho:</b> Cháy gỗ, giấy, vải, vật liệu rắn thông thường.</li>
