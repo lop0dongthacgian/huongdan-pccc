@@ -316,8 +316,7 @@
         /* ====================
            Các hàm chức năng
            ==================== */
-        
-        // SỬA ĐỔI: Nhạc tự phát khi bắt đầu
+
         function startQuiz() {
             gameStarted = true;
             document.getElementById('startBtn').style.display = 'none';
@@ -338,11 +337,11 @@
         function showQuestion() {
             resetTimer();
             if (gameStarted) {
-                const question = shuffledQuestions[currentQuestion];
-                document.getElementById('question').innerHTML = question.question;
+                const questionData = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = questionData.question;
                 const answersDiv = document.getElementById('answers');
                 answersDiv.innerHTML = '';
-                question.answers.forEach(answer => {
+                questionData.answers.forEach(answer => {
                     const button = document.createElement('button');
                     button.className = 'answer-btn';
                     button.innerHTML = answer.text;
@@ -353,20 +352,32 @@
             }
         }
 
-        function checkAnswer(isCorrect, button) {
+        // SỬA ĐỔI: Hiển thị đáp án đúng khi trả lời sai
+        function checkAnswer(isCorrect, clickedButton) {
             clearInterval(timer);
-            const buttons = document.querySelectorAll('.answer-btn');
-            buttons.forEach(b => b.disabled = true);
+            const allButtons = document.querySelectorAll('.answer-btn');
+            allButtons.forEach(b => b.disabled = true);
+
             if (isCorrect) {
                 score++;
                 if (isMusicOn) correctSound.play();
-                button.classList.add('correct');
+                clickedButton.classList.add('correct');
             } else {
                 wrongAnswers++;
                 if (isMusicOn) wrongSound.play();
-                button.classList.add('wrong');
+                clickedButton.classList.add('wrong'); // Tô đỏ đáp án sai đã chọn
+
+                // Tìm và tô xanh đáp án đúng
+                const questionData = shuffledQuestions[currentQuestion];
+                const correctAnswer = questionData.answers.find(ans => ans.correct === true);
+                allButtons.forEach(btn => {
+                    if (btn.innerHTML === correctAnswer.text) {
+                        btn.classList.add('correct');
+                    }
+                });
             }
-            setTimeout(() => nextQuestion(), 1500);
+            // Tăng thời gian chờ để người dùng xem kết quả
+            setTimeout(() => nextQuestion(), 2500); 
         }
 
         function nextQuestion() {
@@ -377,8 +388,7 @@
                 endQuiz(); // Gọi hàm kết thúc trò chơi
             }
         }
-
-        // HÀM MỚI: Xử lý khi kết thúc tất cả câu hỏi
+        
         function endQuiz() {
             gameStarted = false;
             clearInterval(timer);
@@ -408,13 +418,31 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
-                        markAsWrong();
-                        wrongAnswers++;
-                        setTimeout(() => nextQuestion(), 1000);
+                        markAsWrongAndShowCorrect(); // Sửa đổi để khi hết giờ cũng hiển thị đáp án đúng
                     }
                 }, 1000);
             }
         }
+        
+        // SỬA ĐỔI: Hàm mới để xử lý khi hết giờ
+        function markAsWrongAndShowCorrect() {
+            wrongAnswers++;
+            const allButtons = document.querySelectorAll('.answer-btn');
+            allButtons.forEach(b => b.disabled = true);
+            if (isMusicOn) wrongSound.play();
+            
+            // Tìm và tô xanh đáp án đúng
+            const questionData = shuffledQuestions[currentQuestion];
+            const correctAnswer = questionData.answers.find(ans => ans.correct === true);
+            allButtons.forEach(btn => {
+                if (btn.innerHTML === correctAnswer.text) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            setTimeout(() => nextQuestion(), 2500);
+        }
+
 
         function updateTimerDisplay() {
             if (gameStarted) {
@@ -422,12 +450,6 @@
                 timerEl.textContent = timeLeft;
                 timerEl.style.color = timeLeft <= 5 ? 'red' : 'green';
             }
-        }
-
-        function markAsWrong() {
-            const buttons = document.querySelectorAll('.answer-btn');
-            buttons.forEach(b => b.disabled = true);
-            if (isMusicOn) wrongSound.play();
         }
 
         function resetTimer() {
@@ -453,7 +475,6 @@
             const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : questions.length;
             const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
-            // Chuyển hướng về trang chủ giả định, bạn có thể thay đổi đường dẫn này
             setTimeout(() => {
                 window.location.href = '../index.html'; 
             }, 500);
@@ -475,9 +496,7 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
-                        markAsWrong();
-                        wrongAnswers++;
-                        setTimeout(() => nextQuestion(), 1000);
+                        markAsWrongAndShowCorrect();
                     }
                 }, 1000);
             }
