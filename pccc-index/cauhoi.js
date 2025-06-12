@@ -1539,63 +1539,20 @@ const questions = [
     {
         "question": "Trách nhiệm của cơ quan thiết kế về PCCC được qui định tại Nghị định số 35/2003/NĐ-CP như thế nào?",
         "answers": [
-            {
-                "text": "A. Thiết kế bảo đảm các yêu cầu về PCCC; chịu trách nhiệm về sản phẩm thiết kế trong thời gian xây dựng và sử dụng công trình",
-                "correct": false
-            },
-            {
-                "text": "B. Thực hiện giám sát tác giả trong quá trình thi công xây lắp công trình. Tham gia nghiệm thu công trình",
-                "correct": false
-            },
-            {
-                "text": "C. Thiết kế bảo đảm các yêu cầu về PCCC; chịu trách nhiệm về sản phẩm thiết kế trong thời gian xây dựng và sử dụng công trình. Thực hiện giám sát tác giả trong quá trình thi công xây lắp công trình",
-                "correct": false
-            },
-            {
-                "text": "D. Câu A và B đúng",
-                "correct": true
-            },
-            {
-                "text": "E. Câu B và C đúng",
-                "correct": false
-            }
+            {"text": "A. Thiết kế bảo đảm các yêu cầu về PCCC; chịu trách nhiệm về sản phẩm thiết kế trong thời gian xây dựng và sử dụng công trình","correct": false},
+            {"text": "B. Thực hiện giám sát tác giả trong quá trình thi công xây lắp công trình. Tham gia nghiệm thu công trình","correct": false},
+            {"text": "C. Thiết kế bảo đảm các yêu cầu về PCCC; chịu trách nhiệm về sản phẩm thiết kế trong thời gian xây dựng và sử dụng công trình. Thực hiện giám sát tác giả trong quá trình thi công xây lắp công trình","correct": false},
+            {"text": "D. Câu A và B đúng","correct": true},
+            { "text": "E. Câu B và C đúng", "correct": false}
         ]
     },
     {
         "question": "Chương III “chữa cháy” của Nghị định số 35/2003/NĐ-CP ngày 04/4/2003 có mấy điều ? từ điều nào đến điều nào?",
         "answers": [
-            {
-                "text": "A. 11 điều, từ điều 22 đến điều 32",
-                "correct": true
-            },
-            {
-                "text": "B. 11 điều, từ điều 23 đến điều 33",
-                "correct": false
-            },
-            {
-                "text": "C. 11 điều, từ điều 24 đến điều 34",
-                "correct": false
-            },
-            {
-                "text": "D. 11 điều, từ điều 25 đến điều 35",
-                "correct": false
-            },
-            {
-                "text": "A. Điều 21",
-                "correct": false
-            },
-            {
-                "text": "B. Điều 22",
-                "correct": false
-            },
-            {
-                "text": "C. Điều 23",
-                "correct": true
-            },
-            {
-                "text": "D. Điều 24",
-                "correct": false
-            }
+            {"text": "A. 11 điều, từ điều 22 đến điều 32", "correct": true},
+            {"text": "B. 11 điều, từ điều 23 đến điều 33","correct": false},
+            {"text": "C. 11 điều, từ điều 24 đến điều 34", "correct": false},
+            {"text": "D. 11 điều, từ điều 25 đến điều 35", "correct": false}
         ]
     },
     {
@@ -2021,14 +1978,10 @@ const questions = [
     {
         "question": "Hành vi không tổ chức kiểm tra an toàn phòng cháy và chữa cháy theo quy định sẽ bị phạt tiền từ:",
         "answers": [
-            {
-                "text": "A. Từ 500.000 đồng đến 1.000.0000 đồng",
-                "correct": false
-            },
-            {
-                "text": "B. Từ 1000.000 đồng đến 2.000.0000 đồng",
-                "correct": false
-            }
+            {"text": "A. Từ 500.000 đồng đến 1.000.0000 đồng","correct": false},
+            {"text": "B. Từ 1000.000 đồng đến 2.000.0000 đồng","correct": false},
+            {"text": "C. Từ 1.000.000 đồng đến 2.000.000 đồng","correct": true},
+            {"text": "D. .Tất cả đều sai","correct": false}
         ]
     },
     {
