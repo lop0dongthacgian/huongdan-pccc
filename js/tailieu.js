@@ -68,7 +68,7 @@ const danhSachHuongDan = [
             <ul>
                 <li><b>Nên dùng cho:</b> Cháy gỗ, giấy, vải, vật liệu rắn thông thường.</li>
                 <li><b>Cách làm:</b> Dội nước thẳng vào gốc lửa cho đến khi tắt hẳn.</li>
-                <li><b style="color:red;">TUYỆT ĐỐI KHÔNG DÙNG:</b> cho cháy do điện, xăng dầu, mỡ.</li>
+                <li><b style="color:red;">TUYỆT ĐỐI KHÔNG DÙNG CHO:</b> Cháy do điện, xăng dầu, mỡ.</li>
             </ul>
             <h4>2. Dùng chăn hoặc vải dày thấm nước</h4>
             <ul>
