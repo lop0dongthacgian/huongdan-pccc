@@ -17,7 +17,7 @@ const danhSachHuongDan = [
                 <h3>Các bước sử dụng bình chữa cháy khí CO2:</h3>
                 <ol>
                     <li>Kiểm tra bình, không bị hư hỏng.</li>
-                    <li>Cầm bình bằng tay <b style="color:red;"> không chạm vào loa phun (gây bỏng lạnh).</b></li>
+                    <li>Cầm bình bằng tay<span style="color:red;"> không chạm vào loa phun (gây bỏng lạnh).</span></li>
                     <li>Rút chốt an toàn.</li>
                     <li>Hướng loa phun vào gốc lửa.</li>
                     <li>Bóp van để phun khí CO2.</li>
