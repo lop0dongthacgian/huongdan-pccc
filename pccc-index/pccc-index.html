@@ -118,15 +118,15 @@
 
         /* Khung chứa câu hỏi */
         .question-box {
-            background-color: rgba(230, 243, 255, 0.95);
+            background-color: #f0f8ff; /* Màu nền mới cho ô câu hỏi */
             padding: 40px;
             font-size: 32px;
             border-radius: 16px;
             margin: 30px 0;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             font-weight: bold;
-            color: #003366;
-            border-left: 8px solid #2196F3;
+            color: #333; /* Màu chữ cho câu hỏi */
+            border-left: 8px solid #6495ed; /* Viền mới cho ô câu hỏi */
         }
 
         /* Nút đáp án */
@@ -135,34 +135,34 @@
             padding: 30px;
             font-size: 26px;
             margin: 20px 0;
-            background-color: rgba(208, 236, 255, 0.9);
-            border: none;
+            background-color: #e0f2f7; /* Màu nền mới cho nút trả lời */
+            border: 2px solid #b2ebf2; /* Viền mới cho nút trả lời */
             border-radius: 14px;
             text-align: left;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            color: #003366;
+            color: #333; /* Màu chữ cho đáp án */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #2196F3;
+            border-left: 5px solid #80deea;
         }
 
         .answer-btn:hover {
-            background-color: rgba(173, 216, 230, 0.95);
+            background-color: #c0e0e7;
             transform: translateX(10px);
         }
 
         /* Màu cho đáp án đúng/sai */
         .correct {
-            background-color: #006400 !important;
+            background-color: #4CAF50 !important; /* Màu xanh lá cây */
             color: white;
-            border-left: 5px solid #00ff00;
+            border-left: 5px solid #2E7D32;
         }
 
         .wrong {
-            background-color: #ff6347 !important;
+            background-color: #F44336 !important; /* Màu đỏ */
             color: white;
-            border-left: 5px solid #ff0000;
+            border-left: 5px solid #D32F2F;
         }
 
         /* Đồng hồ đếm giờ */
@@ -302,7 +302,7 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Kết quả */
         .result-container {
             background: linear-gradient(135deg, #1a2980, #26d0ce);
@@ -313,26 +313,26 @@
             max-width: 800px;
             margin: 100px auto;
         }
-        
+
         .result-title {
             font-size: 42px;
             color: white;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
         }
-        
+
         .result-text {
             font-size: 32px;
             margin: 20px 0;
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
-        
+
         .score {
             color: #00ff00;
             font-size: 48px;
         }
-        
+
         .wrong-answer {
             color: #ff5252;
         }
@@ -407,16 +407,17 @@
     </div>
 
     <script src="questions.js"></script>
-    
+
     <script>
         /* ====================
            Các biến toàn cục
            ==================== */
         // Tạo các âm thanh và gán đường dẫn
-        const bgMusic = new Audio('audio/nhac-nen.mp3'); // Đã đổi đường dẫn
+        const bgMusic = new Audio('audio/nhac-nen.mp3');
         bgMusic.loop = true;
-        const correctSound = new Audio('audio/correct.mp3'); // Đã đổi đường dẫn
-        const wrongSound = new Audio('audio/wrong.mp3'); // Đã đổi đường dẫn
+        const correctSound = new Audio('audio/correct.mp3');
+        const wrongSound = new Audio('audio/wrong.mp3');
+        const timeoutSound = new Audio('audio/timeout.mp3'); // Âm thanh khi hết giờ
 
         let isMusicOn = false;
         let currentQuestion = 0;
@@ -427,7 +428,7 @@
         let gameStarted = false;
         let wrongAnswers = 0;
         let currentLevel = '';
-        
+
         // Biến lưu trữ câu hỏi (sẽ được nạp từ file questions.js)
         let basicQuestions = window.basicQuestions || [];
         let advancedQuestions = window.advancedQuestions || [];
@@ -451,20 +452,20 @@
             currentLevel = level;
             document.getElementById('levelSelection').style.display = 'none';
             document.getElementById('questionContainer').style.display = 'block';
-            
+
             // Chọn bộ câu hỏi theo cấp độ
             const questions = (level === 'basic') ? basicQuestions : advancedQuestions;
-            
+
             // Kiểm tra xem có câu hỏi nào không
             if (questions.length === 0) {
                 alert(`Không tìm thấy câu hỏi cho cấp độ ${level}!`);
                 return;
             }
-            
+
             startQuiz(questions);
             // Tự động bật nhạc khi bắt đầu trò chơi nếu chưa bật
             if (!isMusicOn) {
-                toggleMusic(); 
+                toggleMusic();
             }
         }
 
@@ -508,6 +509,8 @@
                 score++;
                 clickedButton.classList.add('correct');
                 correctSound.play(); // Phát âm thanh đúng
+                // Code cho hiệu ứng pháo hoa có thể được thêm vào đây,
+                // nhưng sẽ phức tạp và cần thư viện bên ngoài hoặc vẽ bằng Canvas.
             } else {
                 wrongAnswers++;
                 clickedButton.classList.add('wrong');
@@ -522,7 +525,7 @@
                     }
                 });
             }
-            setTimeout(() => nextQuestion(), 2500); 
+            setTimeout(() => nextQuestion(), 2500);
         }
 
         function nextQuestion() {
@@ -533,7 +536,7 @@
                 endQuiz();
             }
         }
-        
+
         function endQuiz() {
             gameStarted = false;
             clearInterval(timer);
@@ -544,7 +547,7 @@
 
             const questionContainer = document.getElementById('questionContainer');
             const totalQuestions = shuffledQuestions.length;
-            
+
             questionContainer.innerHTML = `
                 <div class="result-container">
                     <h2 class="result-title">Hoàn thành!</h2>
@@ -554,7 +557,7 @@
                     <button class="btn" id="playAgainBtn" style="margin-top: 40px; padding: 20px 40px; font-size: 28px;">Chơi lại</button>
                 </div>
             `;
-            
+
             document.getElementById('playAgainBtn').addEventListener('click', restartGame);
         }
 
@@ -567,18 +570,19 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
+                        timeoutSound.play(); // Phát âm thanh hết giờ
                         markAsWrongAndShowCorrect();
                     }
                 }, 1000);
             }
         }
-        
+
         function markAsWrongAndShowCorrect() {
             wrongAnswers++;
             wrongSound.play(); // Phát âm thanh sai khi hết giờ
             const allButtons = document.querySelectorAll('.answer-btn');
             allButtons.forEach(b => b.disabled = true);
-            
+
             // Tìm và tô xanh đáp án đúng
             const questionData = shuffledQuestions[currentQuestion];
             const correctAnswer = questionData.answers.find(ans => ans.correct === true);
@@ -622,7 +626,7 @@
                 document.getElementById('musicBtn').style.background = '#ff9900';
             }
         }
-        
+
         function restartGame() {
             location.reload();
         }
@@ -631,9 +635,9 @@
             const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : 0;
             const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
-            // Optionally, redirect after alert
+            // Tùy chọn, chuyển hướng sau khi hiển thị cảnh báo
             setTimeout(() => {
-                window.location.href = '../index.html'; 
+                window.location.href = '../index.html';
             }, 500);
         }
 
@@ -654,6 +658,7 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
+                        timeoutSound.play(); // Phát âm thanh hết giờ
                         markAsWrongAndShowCorrect();
                     }
                 }, 1000);
