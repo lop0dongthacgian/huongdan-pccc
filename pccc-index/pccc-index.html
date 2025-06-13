@@ -118,7 +118,7 @@
 
         /* Khung chứa câu hỏi */
         .question-box {
-            background-color: #f0f8ff; /* Màu nền mới cho ô câu hỏi */
+            background-color: #e0f7fa; /* Màu xanh nhạt dễ quan sát */
             padding: 40px;
             font-size: 32px;
             border-radius: 16px;
@@ -126,7 +126,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             font-weight: bold;
             color: #333; /* Màu chữ cho câu hỏi */
-            border-left: 8px solid #6495ed; /* Viền mới cho ô câu hỏi */
+            border-left: 8px solid #4dd0e1; /* Viền xanh tương ứng */
         }
 
         /* Nút đáp án */
@@ -135,8 +135,8 @@
             padding: 30px;
             font-size: 26px;
             margin: 20px 0;
-            background-color: #e0f2f7; /* Màu nền mới cho nút trả lời */
-            border: 2px solid #b2ebf2; /* Viền mới cho nút trả lời */
+            background-color: #f3e5f5; /* Màu nền mới cho nút trả lời */
+            border: 2px solid #ce93d8; /* Viền mới cho nút trả lời */
             border-radius: 14px;
             text-align: left;
             cursor: pointer;
@@ -144,11 +144,11 @@
             font-weight: bold;
             color: #333; /* Màu chữ cho đáp án */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #80deea;
+            border-left: 5px solid #ab47bc;
         }
 
         .answer-btn:hover {
-            background-color: #c0e0e7;
+            background-color: #e1bee7;
             transform: translateX(10px);
         }
 
@@ -419,6 +419,9 @@
         const wrongSound = new Audio('audio/wrong.mp3');
         const timeoutSound = new Audio('audio/timeout.mp3'); // Âm thanh khi hết giờ
 
+        // Tạo một mảng chứa các âm thanh hiệu ứng để dễ dàng bật/tắt
+        const effectSounds = [correctSound, wrongSound, timeoutSound];
+
         let isMusicOn = false;
         let currentQuestion = 0;
         let score = 0;
@@ -508,13 +511,18 @@
             if (isCorrect) {
                 score++;
                 clickedButton.classList.add('correct');
-                correctSound.play(); // Phát âm thanh đúng
+                if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
+                    correctSound.play();
+                }
                 // Code cho hiệu ứng pháo hoa có thể được thêm vào đây,
                 // nhưng sẽ phức tạp và cần thư viện bên ngoài hoặc vẽ bằng Canvas.
+                // Để đơn giản, hiện tại tôi sẽ bỏ qua phần này.
             } else {
                 wrongAnswers++;
                 clickedButton.classList.add('wrong');
-                wrongSound.play(); // Phát âm thanh sai
+                if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
+                    wrongSound.play();
+                }
 
                 // Tìm và tô xanh đáp án đúng
                 const questionData = shuffledQuestions[currentQuestion];
@@ -542,8 +550,7 @@
             clearInterval(timer);
             bgMusic.pause(); // Tạm dừng nhạc nền khi kết thúc quiz
             bgMusic.currentTime = 0;
-            isMusicOn = false;
-
+            isMusicOn = false; // Đặt lại trạng thái nhạc
 
             const questionContainer = document.getElementById('questionContainer');
             const totalQuestions = shuffledQuestions.length;
@@ -570,7 +577,9 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
-                        timeoutSound.play(); // Phát âm thanh hết giờ
+                        if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
+                            timeoutSound.play(); // Chỉ phát âm thanh hết giờ
+                        }
                         markAsWrongAndShowCorrect();
                     }
                 }, 1000);
@@ -579,7 +588,9 @@
 
         function markAsWrongAndShowCorrect() {
             wrongAnswers++;
-            wrongSound.play(); // Phát âm thanh sai khi hết giờ
+            // Đã chuyển timeoutSound.play() vào startTimer khi timeLeft <= 0
+            // wrongSound.play(); // Không phát âm thanh sai nữa để tránh trùng lặp
+
             const allButtons = document.querySelectorAll('.answer-btn');
             allButtons.forEach(b => b.disabled = true);
 
@@ -620,10 +631,14 @@
                 bgMusic.play(); // Bật nhạc
                 document.getElementById('musicBtn').textContent = 'Tắt nhạc';
                 document.getElementById('musicBtn').style.background = '#4CAF50';
+                // Bật tiếng các âm báo
+                effectSounds.forEach(sound => sound.muted = false);
             } else {
                 bgMusic.pause(); // Tắt nhạc
                 document.getElementById('musicBtn').textContent = 'Bật nhạc';
                 document.getElementById('musicBtn').style.background = '#ff9900';
+                // Tắt tiếng các âm báo
+                effectSounds.forEach(sound => sound.muted = true);
             }
         }
 
@@ -645,7 +660,9 @@
             document.getElementById('guideBox').style.display = 'block';
             if (gameStarted) {
                 clearInterval(timer); // Tạm dừng bộ đếm giờ khi mở hướng dẫn
-                bgMusic.pause(); // Tạm dừng nhạc khi mở hướng dẫn
+                if (isMusicOn) {
+                    bgMusic.pause(); // Tạm dừng nhạc khi mở hướng dẫn
+                }
             }
         }
 
@@ -653,15 +670,7 @@
             document.getElementById('guideBox').style.display = 'none';
             if (gameStarted && timeLeft > 0) {
                 // Tiếp tục bộ đếm giờ
-                timer = setInterval(() => {
-                    timeLeft--;
-                    updateTimerDisplay();
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        timeoutSound.play(); // Phát âm thanh hết giờ
-                        markAsWrongAndShowCorrect();
-                    }
-                }, 1000);
+                startTimer(); // Gọi lại startTimer để tiếp tục đồng hồ
                 // Tiếp tục nhạc nếu đang bật
                 if (isMusicOn) {
                     bgMusic.play();
