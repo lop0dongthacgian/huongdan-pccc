@@ -406,18 +406,18 @@
         <button id="closeGuide">Đóng</button>
     </div>
 
-    <!-- Nhúng file chứa câu hỏi -->
     <script src="questions.js"></script>
     
     <script>
         /* ====================
            Các biến toàn cục
            ==================== */
-        // Tạo các âm thanh ảo (do không có file thực tế)
-        const bgMusic = new Audio();
+        // Tạo các âm thanh và gán đường dẫn
+        const bgMusic = new Audio('audio/nhac-nen.mp3'); // Đã đổi đường dẫn
         bgMusic.loop = true;
-        const correctSound = new Audio();
-        const wrongSound = new Audio();
+        const correctSound = new Audio('audio/correct.mp3'); // Đã đổi đường dẫn
+        const wrongSound = new Audio('audio/wrong.mp3'); // Đã đổi đường dẫn
+
         let isMusicOn = false;
         let currentQuestion = 0;
         let score = 0;
@@ -462,6 +462,10 @@
             }
             
             startQuiz(questions);
+            // Tự động bật nhạc khi bắt đầu trò chơi nếu chưa bật
+            if (!isMusicOn) {
+                toggleMusic(); 
+            }
         }
 
         function startQuiz(questions) {
@@ -503,9 +507,11 @@
             if (isCorrect) {
                 score++;
                 clickedButton.classList.add('correct');
+                correctSound.play(); // Phát âm thanh đúng
             } else {
                 wrongAnswers++;
                 clickedButton.classList.add('wrong');
+                wrongSound.play(); // Phát âm thanh sai
 
                 // Tìm và tô xanh đáp án đúng
                 const questionData = shuffledQuestions[currentQuestion];
@@ -531,7 +537,10 @@
         function endQuiz() {
             gameStarted = false;
             clearInterval(timer);
+            bgMusic.pause(); // Tạm dừng nhạc nền khi kết thúc quiz
+            bgMusic.currentTime = 0;
             isMusicOn = false;
+
 
             const questionContainer = document.getElementById('questionContainer');
             const totalQuestions = shuffledQuestions.length;
@@ -566,6 +575,7 @@
         
         function markAsWrongAndShowCorrect() {
             wrongAnswers++;
+            wrongSound.play(); // Phát âm thanh sai khi hết giờ
             const allButtons = document.querySelectorAll('.answer-btn');
             allButtons.forEach(b => b.disabled = true);
             
@@ -602,8 +612,15 @@
 
         function toggleMusic() {
             isMusicOn = !isMusicOn;
-            document.getElementById('musicBtn').textContent = isMusicOn ? 'Tắt nhạc' : 'Bật nhạc';
-            document.getElementById('musicBtn').style.background = isMusicOn ? '#4CAF50' : '#ff9900';
+            if (isMusicOn) {
+                bgMusic.play(); // Bật nhạc
+                document.getElementById('musicBtn').textContent = 'Tắt nhạc';
+                document.getElementById('musicBtn').style.background = '#4CAF50';
+            } else {
+                bgMusic.pause(); // Tắt nhạc
+                document.getElementById('musicBtn').textContent = 'Bật nhạc';
+                document.getElementById('musicBtn').style.background = '#ff9900';
+            }
         }
         
         function restartGame() {
@@ -614,6 +631,7 @@
             const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : 0;
             const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
+            // Optionally, redirect after alert
             setTimeout(() => {
                 window.location.href = '../index.html'; 
             }, 500);
@@ -622,13 +640,15 @@
         function showGuide() {
             document.getElementById('guideBox').style.display = 'block';
             if (gameStarted) {
-                clearInterval(timer);
+                clearInterval(timer); // Tạm dừng bộ đếm giờ khi mở hướng dẫn
+                bgMusic.pause(); // Tạm dừng nhạc khi mở hướng dẫn
             }
         }
 
         function closeGuide() {
             document.getElementById('guideBox').style.display = 'none';
             if (gameStarted && timeLeft > 0) {
+                // Tiếp tục bộ đếm giờ
                 timer = setInterval(() => {
                     timeLeft--;
                     updateTimerDisplay();
@@ -637,6 +657,10 @@
                         markAsWrongAndShowCorrect();
                     }
                 }, 1000);
+                // Tiếp tục nhạc nếu đang bật
+                if (isMusicOn) {
+                    bgMusic.play();
+                }
             }
         }
     </script>
