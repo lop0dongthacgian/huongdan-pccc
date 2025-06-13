@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <title>Ứng dụng PCCC</title>
@@ -12,7 +11,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f0f8ff;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            min-height: 100vh;
+            color: #fff;
         }
 
         /* ====================
@@ -23,38 +24,85 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: #ff4444;
-            padding: 20px;
+            background-color: rgba(255, 68, 68, 0.9);
+            padding: 15px;
             display: flex;
             justify-content: space-around;
             z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Các nút trong header */
         .btn {
-            padding: 20px 40px;
+            padding: 15px 30px;
             margin: 5px;
-            font-size: 22px;
+            font-size: 20px;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
+            background-color: #ff9900;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         /* ====================
-           Nút Bắt đầu
+           Khu vực chọn cấp độ
            ==================== */
-        #startBtn {
+        #levelSelection {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 40px 80px;
-            font-size: 36px;
-            background-color: #4CAF50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .level-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .level-btn-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .level-btn {
+            padding: 35px 60px;
+            font-size: 32px;
+            background: linear-gradient(145deg, #4CAF50, #2E7D32);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s;
+            width: 45%;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .level-btn:nth-child(2) {
+            background: linear-gradient(145deg, #2196F3, #0D47A1);
         }
 
         /* ====================
@@ -70,45 +118,51 @@
 
         /* Khung chứa câu hỏi */
         .question-box {
-            background-color: #e6f3ff;
-            padding: 50px;
+            background-color: rgba(230, 243, 255, 0.95);
+            padding: 40px;
             font-size: 32px;
             border-radius: 16px;
             margin: 30px 0;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             font-weight: bold;
             color: #003366;
+            border-left: 8px solid #2196F3;
         }
 
         /* Nút đáp án */
         .answer-btn {
             width: 100%;
-            padding: 35px;
+            padding: 30px;
             font-size: 26px;
             margin: 20px 0;
-            background-color: #d0ecff;
+            background-color: rgba(208, 236, 255, 0.9);
             border: none;
             border-radius: 14px;
             text-align: left;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
             font-weight: bold;
             color: #003366;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #2196F3;
         }
 
         .answer-btn:hover {
-            background-color: #add8e6;
+            background-color: rgba(173, 216, 230, 0.95);
+            transform: translateX(10px);
         }
 
         /* Màu cho đáp án đúng/sai */
         .correct {
             background-color: #006400 !important;
             color: white;
+            border-left: 5px solid #00ff00;
         }
 
         .wrong {
             background-color: #ff6347 !important;
             color: white;
+            border-left: 5px solid #ff0000;
         }
 
         /* Đồng hồ đếm giờ */
@@ -117,6 +171,18 @@
             font-weight: bold;
             text-align: center;
             margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         /* ====================
@@ -128,30 +194,33 @@
             width: 100%;
             text-align: center;
             padding: 15px;
-            background-color: #a5d6a7;
-            font-size: 16px;
-            color: white; /* Màu trắng cho chữ copyright */
+            background-color: rgba(165, 214, 167, 0.9);
+            font-size: 18px;
+            color: white;
             font-weight: bold;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Liên kết "Hướng dẫn" trong footer */
         #helpLink {
             background-color: #007bff;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 8px;
             text-decoration: none;
             cursor: pointer;
-            font-size: 18px;
-            margin-left: 10px; /* Thêm khoảng cách bên trái */
-            transition: background-color 0.3s;
+            font-size: 20px;
+            margin-left: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         #helpLink:hover {
             background-color: #0056b3;
+            transform: translateY(-3px);
         }
 
         /* ====================
@@ -164,11 +233,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
-            padding: 20px;
-            border: 2px solid #0056b3;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border: 3px solid #0056b3;
+            border-radius: 16px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
             z-index: 1001;
             width: 90%;
+            max-width: 900px;
             max-height: 90%;
             overflow-y: auto;
         }
@@ -177,14 +248,14 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            font-size: 18px;
+            font-size: 20px;
             color: #555;
         }
 
         #guideTable th,
         #guideTable td {
-            border: 1px solid #ddd;
-            padding: 16px;
+            border: 2px solid #ddd;
+            padding: 20px;
             text-align: left;
         }
 
@@ -192,40 +263,78 @@
             background-color: #0056b3;
             color: white;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 22px;
         }
 
         #guideTable tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f5f9ff;
         }
 
         #guideTable .feature-name {
             color: #0056b3;
             font-weight: bold;
+            font-size: 22px;
         }
 
         #guideTable .description {
             color: #333;
+            font-size: 20px;
         }
 
         /* Nút đóng bảng hướng dẫn */
         #closeGuide {
-            background-color: #d9534f;
+            background: linear-gradient(to right, #d9534f, #c9302c);
             border: none;
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             text-align: center;
             text-decoration: none;
-            display: inline-block;
-            font-size: 18px;
-            margin: 20px auto;
+            display: block;
+            font-size: 22px;
+            margin: 30px auto 10px;
             cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         #closeGuide:hover {
-            background-color: #c9302c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Kết quả */
+        .result-container {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 800px;
+            margin: 100px auto;
+        }
+        
+        .result-title {
+            font-size: 42px;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        
+        .result-text {
+            font-size: 32px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .score {
+            color: #00ff00;
+            font-size: 48px;
+        }
+        
+        .wrong-answer {
+            color: #ff5252;
         }
     </style>
 </head>
@@ -237,10 +346,18 @@
         <button class="btn" id="exitBtn">Thoát</button>
     </div>
 
-    <button id="startBtn">Bắt đầu</button>
+    <div id="levelSelection">
+        <div class="level-title">Chọn cấp độ câu hỏi</div>
+        <div class="level-btn-container">
+            <button class="level-btn" id="basicBtn">Câu hỏi cơ bản</button>
+            <button class="level-btn" id="advancedBtn">Câu hỏi nâng cao</button>
+        </div>
+    </div>
 
     <div class="question-container" id="questionContainer">
-        <div id="timer">15</div>
+        <div class="timer-container">
+            <div id="timer">15</div>
+        </div>
         <div class="question-box" id="question"></div>
         <div id="answers"></div>
     </div>
@@ -251,7 +368,7 @@
     </footer>
 
     <div id="guideBox">
-        <h2>Hướng dẫn sử dụng</h2>
+        <h2 style="text-align: center; color: #0056b3; font-size: 36px; margin-bottom: 30px;">Hướng dẫn sử dụng</h2>
         <table id="guideTable">
             <thead>
                 <tr>
@@ -261,39 +378,46 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="feature-name">Bắt đầu</td>
-                    <td class="description">Nhấn nút "Bắt đầu" để khởi động trò chơi.</td>
+                    <td class="feature-name">Câu hỏi cơ bản</td>
+                    <td class="description">Nhấn nút "Câu hỏi cơ bản" để chơi với bộ câu hỏi dành cho người mới bắt đầu.</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">Câu hỏi nâng cao</td>
+                    <td class="description">Nhấn nút "Câu hỏi nâng cao" để chơi với bộ câu hỏi khó hơn dành cho người đã có kiến thức.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Trả lời câu hỏi</td>
-                    <td class="description">Chọn đáp án đúng trong thời gian quy định.</td>
+                    <td class="description">Chọn đáp án đúng trong thời gian quy định (15 giây). Đáp án đúng sẽ hiển thị màu xanh, sai sẽ hiển thị màu đỏ.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Bật/Tắt nhạc</td>
-                    <td class="description">Điều khiển nhạc nền.</td>
+                    <td class="description">Điều khiển nhạc nền cho ứng dụng.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Chơi lại</td>
-                    <td class="description">Bắt đầu lượt chơi mới.</td>
+                    <td class="description">Bắt đầu lượt chơi mới với cùng cấp độ.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Thoát</td>
-                    <td class="description">Quay lại trang chủ.</td>
+                    <td class="description">Quay lại trang chủ và xem kết quả tổng kết.</td>
                 </tr>
             </tbody>
         </table>
         <button id="closeGuide">Đóng</button>
     </div>
 
-    <script src="cauhoi.js"></script>
+    <!-- Nhúng file chứa câu hỏi -->
+    <script src="questions.js"></script>
+    
     <script>
         /* ====================
            Các biến toàn cục
            ==================== */
-        const bgMusic = new Audio('nhac-nen.mp3');
-        bgMusic.loop = true; // Nhạc nền tự lặp lại
-        const correctSound = new Audio('correct.mp3');
-        const wrongSound = new Audio('wrong.mp3');
+        // Tạo các âm thanh ảo (do không có file thực tế)
+        const bgMusic = new Audio();
+        bgMusic.loop = true;
+        const correctSound = new Audio();
+        const wrongSound = new Audio();
         let isMusicOn = false;
         let currentQuestion = 0;
         let score = 0;
@@ -302,13 +426,19 @@
         let shuffledQuestions = [];
         let gameStarted = false;
         let wrongAnswers = 0;
+        let currentLevel = '';
+        
+        // Biến lưu trữ câu hỏi (sẽ được nạp từ file questions.js)
+        let basicQuestions = window.basicQuestions || [];
+        let advancedQuestions = window.advancedQuestions || [];
 
         /* ====================
            Các hàm xử lý sự kiện
            ==================== */
-        document.getElementById('startBtn').addEventListener('click', startQuiz);
+        document.getElementById('basicBtn').addEventListener('click', () => loadQuestions('basic'));
+        document.getElementById('advancedBtn').addEventListener('click', () => loadQuestions('advanced'));
         document.getElementById('musicBtn').addEventListener('click', toggleMusic);
-        document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+        document.getElementById('restartBtn').addEventListener('click', restartGame);
         document.getElementById('exitBtn').addEventListener('click', exitGame);
         document.getElementById('helpLink').addEventListener('click', showGuide);
         document.getElementById('closeGuide').addEventListener('click', closeGuide);
@@ -317,21 +447,34 @@
            Các hàm chức năng
            ==================== */
 
-        function startQuiz() {
-            gameStarted = true;
-            document.getElementById('startBtn').style.display = 'none';
+        function loadQuestions(level) {
+            currentLevel = level;
+            document.getElementById('levelSelection').style.display = 'none';
             document.getElementById('questionContainer').style.display = 'block';
-            shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+            
+            // Chọn bộ câu hỏi theo cấp độ
+            const questions = (level === 'basic') ? basicQuestions : advancedQuestions;
+            
+            // Kiểm tra xem có câu hỏi nào không
+            if (questions.length === 0) {
+                alert(`Không tìm thấy câu hỏi cho cấp độ ${level}!`);
+                return;
+            }
+            
+            startQuiz(questions);
+        }
+
+        function startQuiz(questions) {
+            gameStarted = true;
+            shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
             currentQuestion = 0;
             score = 0;
             wrongAnswers = 0;
             showQuestion();
 
-            // Tự động phát nhạc và cập nhật trạng thái
-            bgMusic.play();
-            isMusicOn = true;
+            // Cập nhật trạng thái nhạc
             document.getElementById('musicBtn').textContent = 'Tắt nhạc';
-            document.getElementById('musicBtn').style.background = '#4CAF50'; // Màu xanh lá cho trạng thái "On"
+            document.getElementById('musicBtn').style.background = '#4CAF50';
         }
 
         function showQuestion() {
@@ -352,7 +495,6 @@
             }
         }
 
-        // SỬA ĐỔI: Hiển thị đáp án đúng khi trả lời sai
         function checkAnswer(isCorrect, clickedButton) {
             clearInterval(timer);
             const allButtons = document.querySelectorAll('.answer-btn');
@@ -360,12 +502,10 @@
 
             if (isCorrect) {
                 score++;
-                if (isMusicOn) correctSound.play();
                 clickedButton.classList.add('correct');
             } else {
                 wrongAnswers++;
-                if (isMusicOn) wrongSound.play();
-                clickedButton.classList.add('wrong'); // Tô đỏ đáp án sai đã chọn
+                clickedButton.classList.add('wrong');
 
                 // Tìm và tô xanh đáp án đúng
                 const questionData = shuffledQuestions[currentQuestion];
@@ -376,7 +516,6 @@
                     }
                 });
             }
-            // Tăng thời gian chờ để người dùng xem kết quả
             setTimeout(() => nextQuestion(), 2500); 
         }
 
@@ -385,28 +524,29 @@
             if (currentQuestion < shuffledQuestions.length) {
                 showQuestion();
             } else {
-                endQuiz(); // Gọi hàm kết thúc trò chơi
+                endQuiz();
             }
         }
         
         function endQuiz() {
             gameStarted = false;
             clearInterval(timer);
-            bgMusic.pause();
-            document.getElementById('musicBtn').textContent = 'Bật nhạc';
-            document.getElementById('musicBtn').style.background = '#ff4444';
             isMusicOn = false;
 
             const questionContainer = document.getElementById('questionContainer');
             const totalQuestions = shuffledQuestions.length;
             
             questionContainer.innerHTML = `
-                <div style="background-color: #e6f3ff; padding: 50px; border-radius: 16px; box-shadow: 0 0 12px rgba(0,0,0,0.2); text-align: center;">
-                    <h2 style="font-size: 36px; color: #003366;">Hoàn thành!</h2>
-                    <p style="font-size: 28px; color: #006400; font-weight: bold;">Điểm của bạn: ${score} / ${totalQuestions}</p>
-                    <p style="font-size: 24px; color: #ff6347;">Số câu sai: ${wrongAnswers}</p>
+                <div class="result-container">
+                    <h2 class="result-title">Hoàn thành!</h2>
+                    <p class="result-text">Cấp độ: ${currentLevel === 'basic' ? '<span style="color: #4CAF50">Cơ bản</span>' : '<span style="color: #2196F3">Nâng cao</span>'}</p>
+                    <p class="result-text">Điểm của bạn: <span class="score">${score} / ${totalQuestions}</span></p>
+                    <p class="result-text">Số câu sai: <span class="wrong-answer">${wrongAnswers}</span></p>
+                    <button class="btn" id="playAgainBtn" style="margin-top: 40px; padding: 20px 40px; font-size: 28px;">Chơi lại</button>
                 </div>
             `;
+            
+            document.getElementById('playAgainBtn').addEventListener('click', restartGame);
         }
 
         function startTimer() {
@@ -418,18 +558,16 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
-                        markAsWrongAndShowCorrect(); // Sửa đổi để khi hết giờ cũng hiển thị đáp án đúng
+                        markAsWrongAndShowCorrect();
                     }
                 }, 1000);
             }
         }
         
-        // SỬA ĐỔI: Hàm mới để xử lý khi hết giờ
         function markAsWrongAndShowCorrect() {
             wrongAnswers++;
             const allButtons = document.querySelectorAll('.answer-btn');
             allButtons.forEach(b => b.disabled = true);
-            if (isMusicOn) wrongSound.play();
             
             // Tìm và tô xanh đáp án đúng
             const questionData = shuffledQuestions[currentQuestion];
@@ -443,12 +581,12 @@
             setTimeout(() => nextQuestion(), 2500);
         }
 
-
         function updateTimerDisplay() {
             if (gameStarted) {
                 const timerEl = document.getElementById('timer');
                 timerEl.textContent = timeLeft;
-                timerEl.style.color = timeLeft <= 5 ? 'red' : 'green';
+                timerEl.style.color = timeLeft <= 5 ? '#ff5252' : '#4CAF50';
+                timerEl.style.fontSize = timeLeft <= 5 ? '60px' : '48px';
             }
         }
 
@@ -456,23 +594,24 @@
             clearInterval(timer);
             const timerEl = document.getElementById('timer');
             if (timerEl) {
-                 timerEl.textContent = '';
+                 timerEl.textContent = '15';
+                 timerEl.style.color = '#4CAF50';
+                 timerEl.style.fontSize = '48px';
             }
         }
 
         function toggleMusic() {
             isMusicOn = !isMusicOn;
             document.getElementById('musicBtn').textContent = isMusicOn ? 'Tắt nhạc' : 'Bật nhạc';
-            document.getElementById('musicBtn').style.background = isMusicOn ? '#4CAF50' : '#ff4444';
-            if (isMusicOn) {
-                bgMusic.play();
-            } else {
-                bgMusic.pause();
-            }
+            document.getElementById('musicBtn').style.background = isMusicOn ? '#4CAF50' : '#ff9900';
+        }
+        
+        function restartGame() {
+            location.reload();
         }
 
         function exitGame() {
-            const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : questions.length;
+            const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : 0;
             const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
             setTimeout(() => {
@@ -483,14 +622,13 @@
         function showGuide() {
             document.getElementById('guideBox').style.display = 'block';
             if (gameStarted) {
-                clearInterval(timer); // Tạm dừng đồng hồ
+                clearInterval(timer);
             }
         }
 
         function closeGuide() {
             document.getElementById('guideBox').style.display = 'none';
             if (gameStarted && timeLeft > 0) {
-                // Tiếp tục đồng hồ thay vì reset câu hỏi
                 timer = setInterval(() => {
                     timeLeft--;
                     updateTimerDisplay();
@@ -503,5 +641,4 @@
         }
     </script>
 </body>
-
 </html>
