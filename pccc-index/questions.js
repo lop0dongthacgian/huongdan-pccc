@@ -424,7 +424,8 @@ window.basicQuestions = [
             { text: "Các phương pháp phòng khói khẩn cấp như khăn ướt luôn có tác dụng tốt vì vậy bạn nên luôn để 1 chai nước trong phòng.", correct: false },
             { text: "Tất cả các đáp án trên.", correct: true }
         ]
-    };
+    }
+    ];
     
     // Câu hỏi nâng cao
 window.advancedQuestions = [
