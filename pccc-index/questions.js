@@ -400,7 +400,8 @@ window.basicQuestions = [
         answers: [
             { text: "Có, luôn mở cửa sổ để thoát khói.", correct: false },
             { text: "Chỉ mở cửa sổ khi chắc chắn không có lửa bên ngoài.", correct: true },
-            { text: "Không nên mở cửa sổ vì có thể làm lửa lan rộng.", correct: false }
+            { text: "Không nên mở cửa sổ vì có thể làm lửa lan rộng.", correct: false },
+            { text: "Không cần chú ý điều này.", correct: false }
         ]
     },
     {
@@ -408,7 +409,8 @@ window.basicQuestions = [
         answers: [
             { text: "Vô hiệu hóa chuông báo động khói. Nếu bạn không ngửi thấy khói hoặc nhìn thấy ngọn lửa nghĩa là mọi thứ đều ổn.", correct: false },
             { text: "Dùng mu bàn tay để mở cánh cửa đang đóng. Mở nó từ từ và đi ra ngoài.", correct: true },
-            { text: "Chạy ra ngoài ngay.", correct: false }
+            { text: "Chạy ra ngoài ngay.", correct: false },
+            { text: "Ở yên tại chổ để theo dõi tình hình.", correct: false }
         ]
     },
     {
