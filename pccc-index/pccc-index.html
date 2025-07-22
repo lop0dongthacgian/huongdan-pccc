@@ -347,10 +347,9 @@
     </div>
 
     <div id="levelSelection">
-        <div class="level-title">Chọn cấp độ câu hỏi</div>
+        <div class="level-title">Sẵn sàng thử thách kiến thức PCCC?</div>
         <div class="level-btn-container">
-            <button class="level-btn" id="basicBtn">Câu hỏi cơ bản</button>
-            <button class="level-btn" id="advancedBtn">Câu hỏi nâng cao</button>
+            <button class="level-btn" id="startBtn">Bắt đầu</button>
         </div>
     </div>
 
@@ -378,12 +377,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="feature-name">Câu hỏi cơ bản</td>
-                    <td class="description">Nhấn nút "Câu hỏi cơ bản" để chơi với bộ câu hỏi dành cho người mới bắt đầu.</td>
-                </tr>
-                <tr>
-                    <td class="feature-name">Câu hỏi nâng cao</td>
-                    <td class="description">Nhấn nút "Câu hỏi nâng cao" để chơi với bộ câu hỏi khó hơn dành cho người đã có kiến thức.</td>
+                    <td class="feature-name">Bắt đầu</td>
+                    <td class="description">Nhấn nút "Bắt đầu" để chơi với bộ câu hỏi tổng hợp về kiến thức PCCC.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Trả lời câu hỏi</td>
@@ -395,7 +390,7 @@
                 </tr>
                 <tr>
                     <td class="feature-name">Chơi lại</td>
-                    <td class="description">Bắt đầu lượt chơi mới với cùng cấp độ.</td>
+                    <td class="description">Bắt đầu lại lượt chơi mới.</td>
                 </tr>
                 <tr>
                     <td class="feature-name">Thoát</td>
@@ -412,14 +407,12 @@
         /* ====================
            Các biến toàn cục
            ==================== */
-        // Tạo các âm thanh và gán đường dẫn
         const bgMusic = new Audio('audio/nhac-nen.mp3');
         bgMusic.loop = true;
         const correctSound = new Audio('audio/correct.mp3');
         const wrongSound = new Audio('audio/wrong.mp3');
-        const timeoutSound = new Audio('audio/timeout.mp3'); // Âm thanh khi hết giờ
+        const timeoutSound = new Audio('audio/timeout.mp3'); 
 
-        // Tạo một mảng chứa các âm thanh hiệu ứng để dễ dàng bật/tắt
         const effectSounds = [correctSound, wrongSound, timeoutSound];
 
         let isMusicOn = false;
@@ -430,17 +423,14 @@
         let shuffledQuestions = [];
         let gameStarted = false;
         let wrongAnswers = 0;
-        let currentLevel = '';
 
-        // Biến lưu trữ câu hỏi (sẽ được nạp từ file questions.js)
         let basicQuestions = window.basicQuestions || [];
         let advancedQuestions = window.advancedQuestions || [];
 
         /* ====================
            Các hàm xử lý sự kiện
            ==================== */
-        document.getElementById('basicBtn').addEventListener('click', () => loadQuestions('basic'));
-        document.getElementById('advancedBtn').addEventListener('click', () => loadQuestions('advanced'));
+        document.getElementById('startBtn').addEventListener('click', loadQuestions);
         document.getElementById('musicBtn').addEventListener('click', toggleMusic);
         document.getElementById('restartBtn').addEventListener('click', restartGame);
         document.getElementById('exitBtn').addEventListener('click', exitGame);
@@ -451,22 +441,19 @@
            Các hàm chức năng
            ==================== */
 
-        function loadQuestions(level) {
-            currentLevel = level;
+        function loadQuestions() {
             document.getElementById('levelSelection').style.display = 'none';
             document.getElementById('questionContainer').style.display = 'block';
 
-            // Chọn bộ câu hỏi theo cấp độ
-            const questions = (level === 'basic') ? basicQuestions : advancedQuestions;
+            // Gộp câu hỏi cơ bản và nâng cao vào một mảng
+            const allQuestions = [...basicQuestions, ...advancedQuestions];
 
-            // Kiểm tra xem có câu hỏi nào không
-            if (questions.length === 0) {
-                alert(`Không tìm thấy câu hỏi cho cấp độ ${level}!`);
+            if (allQuestions.length === 0) {
+                alert(`Không tìm thấy câu hỏi! Vui lòng kiểm tra lại tệp questions.js`);
                 return;
             }
 
-            startQuiz(questions);
-            // Tự động bật nhạc khi bắt đầu trò chơi nếu chưa bật
+            startQuiz(allQuestions);
             if (!isMusicOn) {
                 toggleMusic();
             }
@@ -480,7 +467,6 @@
             wrongAnswers = 0;
             showQuestion();
 
-            // Cập nhật trạng thái nhạc
             document.getElementById('musicBtn').textContent = 'Tắt nhạc';
             document.getElementById('musicBtn').style.background = '#4CAF50';
         }
@@ -511,20 +497,16 @@
             if (isCorrect) {
                 score++;
                 clickedButton.classList.add('correct');
-                if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
+                if (isMusicOn) {
                     correctSound.play();
                 }
-                // Code cho hiệu ứng pháo hoa có thể được thêm vào đây,
-                // nhưng sẽ phức tạp và cần thư viện bên ngoài hoặc vẽ bằng Canvas.
-                // Để đơn giản, hiện tại tôi sẽ bỏ qua phần này.
             } else {
                 wrongAnswers++;
                 clickedButton.classList.add('wrong');
-                if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
+                if (isMusicOn) { 
                     wrongSound.play();
                 }
 
-                // Tìm và tô xanh đáp án đúng
                 const questionData = shuffledQuestions[currentQuestion];
                 const correctAnswer = questionData.answers.find(ans => ans.correct === true);
                 allButtons.forEach(btn => {
@@ -548,9 +530,9 @@
         function endQuiz() {
             gameStarted = false;
             clearInterval(timer);
-            bgMusic.pause(); // Tạm dừng nhạc nền khi kết thúc quiz
+            bgMusic.pause();
             bgMusic.currentTime = 0;
-            isMusicOn = false; // Đặt lại trạng thái nhạc
+            isMusicOn = false; 
 
             const questionContainer = document.getElementById('questionContainer');
             const totalQuestions = shuffledQuestions.length;
@@ -558,7 +540,6 @@
             questionContainer.innerHTML = `
                 <div class="result-container">
                     <h2 class="result-title">Hoàn thành!</h2>
-                    <p class="result-text">Cấp độ: ${currentLevel === 'basic' ? '<span style="color: #4CAF50">Cơ bản</span>' : '<span style="color: #2196F3">Nâng cao</span>'}</p>
                     <p class="result-text">Điểm của bạn: <span class="score">${score} / ${totalQuestions}</span></p>
                     <p class="result-text">Số câu sai: <span class="wrong-answer">${wrongAnswers}</span></p>
                     <button class="btn" id="playAgainBtn" style="margin-top: 40px; padding: 20px 40px; font-size: 28px;">Chơi lại</button>
@@ -577,8 +558,8 @@
                     updateTimerDisplay();
                     if (timeLeft <= 0) {
                         clearInterval(timer);
-                        if (isMusicOn) { // Chỉ phát âm thanh nếu nhạc đang bật
-                            timeoutSound.play(); // Chỉ phát âm thanh hết giờ
+                        if (isMusicOn) { 
+                            timeoutSound.play(); 
                         }
                         markAsWrongAndShowCorrect();
                     }
@@ -588,13 +569,10 @@
 
         function markAsWrongAndShowCorrect() {
             wrongAnswers++;
-            // Đã chuyển timeoutSound.play() vào startTimer khi timeLeft <= 0
-            // wrongSound.play(); // Không phát âm thanh sai nữa để tránh trùng lặp
-
+            
             const allButtons = document.querySelectorAll('.answer-btn');
             allButtons.forEach(b => b.disabled = true);
 
-            // Tìm và tô xanh đáp án đúng
             const questionData = shuffledQuestions[currentQuestion];
             const correctAnswer = questionData.answers.find(ans => ans.correct === true);
             allButtons.forEach(btn => {
@@ -628,16 +606,14 @@
         function toggleMusic() {
             isMusicOn = !isMusicOn;
             if (isMusicOn) {
-                bgMusic.play(); // Bật nhạc
+                bgMusic.play();
                 document.getElementById('musicBtn').textContent = 'Tắt nhạc';
                 document.getElementById('musicBtn').style.background = '#4CAF50';
-                // Bật tiếng các âm báo
                 effectSounds.forEach(sound => sound.muted = false);
             } else {
-                bgMusic.pause(); // Tắt nhạc
+                bgMusic.pause(); 
                 document.getElementById('musicBtn').textContent = 'Bật nhạc';
                 document.getElementById('musicBtn').style.background = '#ff9900';
-                // Tắt tiếng các âm báo
                 effectSounds.forEach(sound => sound.muted = true);
             }
         }
@@ -650,7 +626,6 @@
             const totalQuestions = shuffledQuestions.length > 0 ? shuffledQuestions.length : 0;
             const message = `Bạn đã trả lời đúng ${score} câu, sai ${wrongAnswers} câu trên tổng số ${totalQuestions} câu hỏi.`;
             alert(message);
-            // Tùy chọn, chuyển hướng sau khi hiển thị cảnh báo
             setTimeout(() => {
                 window.location.href = '../index.html';
             }, 500);
@@ -659,9 +634,9 @@
         function showGuide() {
             document.getElementById('guideBox').style.display = 'block';
             if (gameStarted) {
-                clearInterval(timer); // Tạm dừng bộ đếm giờ khi mở hướng dẫn
+                clearInterval(timer); 
                 if (isMusicOn) {
-                    bgMusic.pause(); // Tạm dừng nhạc khi mở hướng dẫn
+                    bgMusic.pause();
                 }
             }
         }
@@ -669,9 +644,7 @@
         function closeGuide() {
             document.getElementById('guideBox').style.display = 'none';
             if (gameStarted && timeLeft > 0) {
-                // Tiếp tục bộ đếm giờ
-                startTimer(); // Gọi lại startTimer để tiếp tục đồng hồ
-                // Tiếp tục nhạc nếu đang bật
+                startTimer();
                 if (isMusicOn) {
                     bgMusic.play();
                 }
